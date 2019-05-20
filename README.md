@@ -1,5 +1,6 @@
 # Machine learning model for unsupervised knowledge discovery
 
+
 ## Tentative Model Structure
 
 * Input signals are divided using component analysis - There can be many input signals from many sources as well as multiple candidates of component signals for each input signal  
@@ -15,15 +16,20 @@
 * Model is designed to be stacked hierarchically. The state sequence inputs of a higher layer is a sequences of activated STMs from the lower layer
 
 
+### State transition model
+
+See src/stm.py for implementation and notes
+
+The purpose of an STM is to classify sequences, calculate a likleyhood that a squence belongs to a class, and make predictions for sequences belonging to a class
+
+A state transition model is basically a Markov Model without the Markov assumption that state transtions must be conditional only to the previous state. In a STM, transitions can be conditional to any number of things. 
+
+
 ### Not worked out yet
 
 * A graph is maintained to model spacial-temporal relations between STMs
 
 * STM transition probabilites are conditional to relations in the graph. For example if symbol q is strongly correlated temporally with the symbol u then P(X(t+1) == u|X(t) == q) should be high
-
-
-
-
 
 
 ## Inital Research Goals
@@ -36,11 +42,25 @@ or
 
 New STMs are always being created to model the active sequence. The goal is how to delete redundant STMs. 
 
-Use information 
+also 
+
+Use integrated information theory to try to enlarge phi with new model choices
 
 
 
 
+## Continous States
 
+Audio signal features tend to be vectors of continous values for a set time window. To process this data a contious vector values state transition model will be neccecery.
+
+Let the feature vector be of size n
+
+Then the model will consist of n joint probability density functions each with n dimensions - This is for the simple markovian case
+
+Also if i wanted to add an interval condition there would need to be a way to track the euclidian distance (possibly kernalised to other distance metric) for each history state and then mesure the most recent time the state was close
+
+Also using only the interval value could be an interesting dimension reduction technique
+
+P(X[t+1] | time since system was last last in current state)
 
 
